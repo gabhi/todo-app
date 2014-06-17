@@ -1,0 +1,172 @@
+<!doctype html>
+<html ng-app>
+<head>
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="todo.css">
+</head>
+<body>
+
+
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Project name</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li class="divider"></li>
+							<li class="dropdown-header">Nav header</li>
+							<li><a href="#">Separated link</a></li>
+							<li><a href="#">One more separated link</a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="../navbar/">Default</a></li>
+					<li><a href="../navbar-static-top/">Static top</a></li>
+					<li class="active"><a href="./">Fixed top</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="container">
+
+		<!-- Main component for a primary marketing message or call to action -->
+		<div class="jumbotron">
+
+
+
+
+
+
+
+			<h2>Todo</h2>
+
+
+			<div ng-controller="TodoCtrl">
+
+
+				<ul class="unstyled">
+					<li ng-repeat="todo in todos">
+						<span class="done-{{todo.done}}"> {{todo.title}} -- {{todo.body}}</span>
+						<a href=""    class="open-AddBookDialog"  ng-click="testmydata(todo);" data-toggle="modal" data-target="#myModal">Update</a>
+					</li>
+				</ul>
+
+				<ul class="pager">
+
+					<span ng-if="response._links.prev" class="animate-if">
+						<li><a href="" ng-click="refreshData('prev')">Previous</a></li>
+
+					</span>
+
+					<span ng-if="response._links.next" class="animate-if">
+						<li><a href="" ng-click="refreshData('next')">Next</a></li>
+
+					</span>
+
+				</ul>
+				<form ng-submit="addTodo()">
+					<input type="text" ng-model="todoTitle"  size="30"
+					placeholder="Todo title">
+					<input type="text" ng-model="todoBody"  size="30"
+					placeholder="Todo body">
+					<input class="btn btn-lg btn-primary" type="submit" value="add">
+				</form>
+
+
+
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">Todo task status update</h4>
+							</div>
+							<div class="modal-body">
+
+
+							<p>Are you sure you want to update the following task</p>
+								<p><b>{{update_todo.title}}</b></p>
+								<span class="input-group-addon">
+									<input type="checkbox" ng-model="flag_send_sms" > Send SMS to 	<input type="text" ng-model="todo_sms_number"  size="30">
+								</span>
+								
+
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" 
+								data-dismiss="modal">Close</button>
+								<button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="testme()">Save changes</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+			</div>
+		</div>
+
+	</div> <!-- /container -->
+
+
+
+
+
+	
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.11/angular.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+	<script src="todo.js"></script>
+
+
+</body>
+</html>

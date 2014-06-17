@@ -1,0 +1,9 @@
+.done-true {
+  text-decoration: line-through;
+  color: grey;
+}
+
+body {
+  min-height: 2000px;
+  padding-top: 70px;
+}
