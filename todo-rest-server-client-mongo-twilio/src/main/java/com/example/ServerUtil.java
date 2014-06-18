@@ -41,13 +41,12 @@ public class ServerUtil {
 
 		return null;
 	}
-	
-	
+
 	public JsonNode deleteTodo(String id) {
 
 		HttpResponse<JsonNode> jsonResponse;
 		try {
-			jsonResponse = Unirest.delete(BASE_URI+id).header("accept", "application/json").asJson();
+			jsonResponse = Unirest.delete(BASE_URI + id).header("accept", "application/json").asJson();
 			System.out.println(jsonResponse.getBody());
 
 			return jsonResponse.getBody();
@@ -61,30 +60,32 @@ public class ServerUtil {
 
 		return null;
 	}
-	
-	public JsonNode CreateNewTodo(String title, String body) {
-System.out.println(title + "----"+body);
+
+	public HttpResponse<JsonNode> CreateNewTodo(String title, String body) {
+		// System.out.println(title + "----"+body);
 		HttpResponse<JsonNode> jsonResponse;
 		try {
-			jsonResponse = Unirest.post(BASE_URI)
-					  .header("Content-Type", "application/json")
-					  .body("{  \"title\" : \""+title+"\",  \"body\" : \""+body+"\" }")
-					  .asJson();
-			
-			
- 			System.out.println(jsonResponse.getBody());
+			jsonResponse = Unirest.post(BASE_URI).header("Content-Type", "application/json")
+					.body("{  \"title\" : \"" + title + "\",  \"body\" : \"" + body + "\" }").asJson();
 
-			return jsonResponse.getBody();
+			System.out.println(jsonResponse.getCode());
+			System.out.println(jsonResponse.getBody());
+
+			return jsonResponse;
 
 			// System.out.println(response.getObject().getJSONObject("_embedded").getJSONArray("todos"));
 
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
+			System.out.println("errrr");
 			System.out.println(e);
 		}
 
 		return null;
 	}
+
+	
+	
 	
 	public JsonNode Update(String id, boolean done) {
 		System.out.println(id + "----"+done);
@@ -109,17 +110,38 @@ System.out.println(title + "----"+body);
 
 				return null;
 			}
-	
-	public static void main(String[] args) {
-		
-		ServerUtil s = ServerUtil.instance();
-		//System.out.println(s.getRoot());
-		
-		System.out.println(s.CreateNewTodo("323", "32423"));
-		
-		//System.out.println(s.getRoot());
+	/*
+	public HttpResponse Update(String id, boolean done) {
+		System.out.println(id + "----" + done);
+		HttpResponse<JsonNode> jsonResponse;
+		try {
+			jsonResponse = Unirest.patch(BASE_URI + id).header("Content-Type", "application/json")
+					.body("{  \"done\" :" + done + " }").asJson();
 
-				
+			System.out.println(jsonResponse.getBody());
+
+			return jsonResponse;
+
+			// System.out.println(response.getObject().getJSONObject("_embedded").getJSONArray("todos"));
+
+		} catch (UnirestException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		}
+
+		return null;
+	}
+	*/
+
+	public static void main(String[] args) {
+		System.out.println("%%%%%%%%%%");
+		ServerUtil s = ServerUtil.instance();
+		// System.out.println(s.getRoot());
+
+		System.out.println(s.CreateNewTodo("a", "a"));
+
+		// System.out.println(s.getRoot());
+
 	}
 
 }

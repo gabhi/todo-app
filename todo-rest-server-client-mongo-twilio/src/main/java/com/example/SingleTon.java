@@ -2,10 +2,12 @@ package com.example;
 
 public class SingleTon {
 	private static SingleTon singleTonInstance;
-	//private constructor
+
+	// private constructor
 	private SingleTon() {
 	}
-	//public static get instance
+
+	// public static get instance
 	public static SingleTon getSingleInstance() {
 		if (singleTonInstance == null) {
 			synchronized (SingleTon.class) {

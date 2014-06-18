@@ -95,6 +95,44 @@ function TodoCtrl($scope, $http) {
     $scope.testme = function(id) {
         $scope.updateTodo($scope.update_todo);
     };
+    $scope.searchTodo = function(id) {
+
+        myfunction("http://obscure-waters-1043.herokuapp.com/search?q=" + $scope.q,
+            'json', 'GET', null, null).then(function(dataResponse) {
+            debugger;
+            $scope.searchResults = (dataResponse.data);
+
+        });
+
+
+
+    };
+
+    $scope.updateCompleteTodo = function(todo) {
+        // alert(id + "--" + flag);
+        //alert("flag " + $scope.flag_send_sms);
+        var headers1 = {
+            "Content-Type": "application/x-www-form-urlencoded"
+        };
+        debugger;
+        var data = {
+            "title": todo.title + "_update",
+            "body": todo.body,
+            "done": todo.done
+
+        };
+        console.log(todo);
+        myfunction(site_base_url + todo.id,
+            'json', 'PUT', serializeData(data), headers1).then(function(dataResponse) {
+
+
+            $scope.refreshData();
+
+        });
+
+
+    };
+
     $scope.updateTodo = function(todo) {
         // alert(id + "--" + flag);
         //alert("flag " + $scope.flag_send_sms);

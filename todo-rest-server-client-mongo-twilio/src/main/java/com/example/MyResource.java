@@ -12,10 +12,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 //todo separate mongo
 //connecion to mongodb configurable
 //singleton mongodb class
 //Generic object class
+
+import com.mashape.unirest.http.HttpResponse;
 
 ////////
 /**
@@ -78,19 +81,29 @@ public class MyResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String patch(@PathParam("id") String id, @FormParam("done") boolean done) {
 
-		System.out.println("******" + id + "===" + done);
-		serverUtil.Update(id, done);
-		return "";
+		System.out.println("**999999***" + id + "===" + done);
+		
+		return (serverUtil.Update(id, done).toString());
+
 	}
 
 	@POST
 	@Consumes({ "application/xml", "application/json", "application/x-www-form-urlencoded" })
 	@Produces(MediaType.TEXT_PLAIN)
-	public String create(@FormParam("title") String title, @FormParam("body") String body) {
+	public Response create(@FormParam("title") String title, @FormParam("body") String body) {
 		System.out.println(title + "*******" + body);
-		serverUtil.CreateNewTodo(title, body).toString();
-		return body;
+		return convert(serverUtil.CreateNewTodo(title, body));
 
+		// return null;
+
+	}
+
+	public Response convert(HttpResponse r) {
+		if (r.getCode() != 200) {
+			return Response.status(r.getCode()).entity(r.getBody().toString()).build();
+		} else {
+			return Response.ok(r.getBody().toString()).build();
+		}
 	}
 
 }
